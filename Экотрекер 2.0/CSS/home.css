@@ -1,0 +1,44 @@
+/* Стили карточки баланса */
+.balance-card {
+  background: linear-gradient(135deg, #10B981 0%, #047857 100%);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.balance-card::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.balance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.balance-title { font-size: 14px; opacity: 0.9; font-weight: 500; }
+.rank-badge { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; }
+.balance-amount { font-size: 32px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.balance-amount span { color: #FCD34D; }
+
+/* Карточка точки сбора */
+.point-card {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.point-info { display: flex; align-items: center; gap: 12px; }
+.point-icon { width: 40px; height: 40px; border-radius: 50%; background-color: var(--color-accent-blue-light); color: var(--color-accent-blue); display: flex; align-items: center; justify-content: center; }
+.point-name { font-size: 14px; font-weight: 600; }
+.point-desc { font-size: 12px; color: var(--text-muted); }
+.point-status { font-size: 12px; font-weight: 600; color: var(--color-primary); }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Life — Челленджи</title>
+  <link rel="icon" href="img/icon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/challenges.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <header class="header header-leaderboard">
+      <h1 class="page-title">Эко-челленджи</h1>
+      <div class="tabs-container">
+        <button class="tab-btn active" onclick="filterCh('all', this)">Все</button>
+        <button class="tab-btn" onclick="filterCh('in_progress', this)">В процессе</button>
+        <button class="tab-btn" onclick="filterCh('completed', this)">Завершенные</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="featured-challenge">
+        <div class="featured-badge">🔥 Главный марафон</div>
+        <h3 class="featured-title">Месяц без пластиковых стаканов</h3>
+        <p class="featured-desc">Сдавай пластик на территории МЦК-КТИТС весь месяц.</p>
+        <div class="featured-footer">
+          <span class="featured-reward">+500 Б</span>
+          <span class="featured-timer">⏱️ Осталось 12 дней</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header"><h2 class="section-title">Доступные задания</h2></div>
+        <div class="challenges-grid"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="hh.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span></a>
+      <a href="chel.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg><span>Челленджи</span></a>
+      <div class="qr-scan-btn"><svg viewBox="0 0 24 24"><path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zM19 3h-4v2h4v4h2V5c0-1.1-.9-2-2-2x"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg></div>
+      <a href="jopa.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M16 11V3H8v8H2l10 10 10-10h-6zM4.21 9l7.79-7.79L19.79 9H4.21z"/></svg><span>Рейтинг</span></a>
+      <a href="regit.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Профиль</span></a>
+    </nav>
+
+    <!-- МОДАЛЬНЫЙ ЭКО-КВИЗ -->
+    <div class="qr-modal" id="quiz-modal">
+      <div class="qr-modal-content">
+        <div class="qr-modal-header">
+          <h3>🧠 Эко-Квиз</h3>
+          <button class="qr-close-btn" onclick="closeQuizModal()">&times;</button>
+        </div>
+        <div id="quiz-body"></div>
+      </div>
+    </div>
+
+    <div class="qr-modal" id="qr-modal">
+      <div class="qr-modal-content">
+        <div class="qr-modal-header">
+          <h3>Отсканируйте QR-код</h3>
+          <button class="qr-close-btn" id="close-qr-btn">&times;</button>
+        </div>
+        <div id="qr-reader"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="js/app-core.js"></script>
+  <script src="js/qr.js"></script>
+  <script>
+    let activeQuizId = null;
+
+    function filterCh(type, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      EcoCore.renderChallenges(type);
+    }
+
+    function openQuizModal(quizId) {
+      activeQuizId = quizId;
+      const data = EcoCore.getData();
+      const quiz = data.challenges.find(c => c.id === quizId && c.isQuiz);
+      const container = document.getElementById('quiz-body');
+      if (!quiz || !container) { alert('Квиз не найден. Обновите страницу.'); return; }
+      const user = data.users[data.currentUserKey];
+      if ((user.completedChallenges || []).includes(quizId)) { alert('Вы уже прошли этот квиз.'); return; }
+      container.innerHTML = '';
+      const question = document.createElement('p');
+      question.style.cssText = 'font-size:14px; font-weight:600; margin-bottom:12px;';
+      question.textContent = quiz.question || quiz.title;
+      container.appendChild(question);
+      
+      quiz.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-action';
+        btn.style.cssText = 'margin-bottom:8px; background:#F3F4F6; width:100%; text-align:left; justify-content:flex-start;';
+        btn.textContent = opt.text;
+        btn.onclick = () => submitQuiz(opt.isCorrect, quiz.reward);
+        container.appendChild(btn);
+      });
+
+      document.getElementById('quiz-modal').classList.add('active');
+    }
+
+    function closeQuizModal() {
+      document.getElementById('quiz-modal').classList.remove('active');
+    }
+
+    function submitQuiz(isCorrect, reward) {
+      closeQuizModal();
+      if (isCorrect) {
+        const userKey = EcoCore.getData().currentUserKey;
+        const data = EcoCore.getData();
+        if (!data.users[userKey].completedChallenges) data.users[userKey].completedChallenges = [];
+        
+        // Фиксация уникального прохождения
+        if (data.users[userKey].completedChallenges.includes(activeQuizId)) { alert('Вы уже прошли этот квиз.'); return; }
+        data.users[userKey].completedChallenges.push(activeQuizId);
+        EcoCore.saveData(data);
+        
+        EcoCore.addPoints(userKey, reward, 0, "Квиз пройден");
+        alert(`🎉 Правильно! Вам начислено +${reward} Б!`);
+      } else {
+        alert("❌ Неправильный ответ! Попробуйте еще раз.");
+      }
+    }
+  </script>
+</body>
+</html>

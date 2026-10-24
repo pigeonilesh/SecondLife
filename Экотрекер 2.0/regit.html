@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Life — Профиль</title>
+  <link rel="icon" href="img/icon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/profile.css">
+  <style>
+    .history-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-color); font-size: 13px; }
+    .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header class="header">
+      <h1 class="page-title">Профиль</h1>
+      <button class="icon-btn" onclick="openSettingsModal()" title="Настройки">⚙️</button>
+    </header>
+
+    <main class="main-content">
+      <section class="profile-card">
+        <div class="profile-avatar-wrapper">
+          <div class="profile-avatar">НИ</div>
+          <span class="verified-badge">✓</span>
+        </div>
+        <div class="profile-meta">
+          <h2 class="profile-name">Никулин Илья</h2>
+          <p class="profile-university">МЦК-КТИТС (Бари Галеева 3А)</p>
+          <div class="profile-tags">
+            <span class="tag-pill tag-pill-group">Группа: 323СИС</span>
+            <span class="tag-pill tag-verified">Подтвержден</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">⚖️</div>
+          <div class="stat-value stat-value-waste">18.5 кг</div>
+          <div class="stat-label">Мусора сдано</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-value stat-value-points">1 250</div>
+          <div class="stat-label">Всего баллов</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value">3 / 10</div>
+          <div class="stat-label">Челленджи</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🌱</div>
+          <div class="stat-value">-32 кг</div>
+          <div class="stat-label">След CO₂</div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header"><h3 class="section-title">Достижения</h3></div>
+        <div class="badges-row"></div>
+      </section>
+
+      <section class="menu-list">
+        <button class="menu-item" onclick="openHistoryModal()">
+          <div class="menu-item-left"><span class="menu-icon">📜</span><span class="menu-text">История сдачи мусора</span></div>
+          <span class="menu-arrow">›</span>
+        </button>
+        <button class="menu-item" onclick="openPassModal()">
+          <div class="menu-item-left"><span class="menu-icon">🔒</span><span class="menu-text">Сменить пароль</span></div>
+          <span class="menu-arrow">›</span>
+        </button>
+        <a href="https://web.max.ru/1320280" class="menu-item">
+          <div class="menu-item-left"><span class="menu-icon">💬</span><span class="menu-text">Служба поддержки / Деканат</span></div>
+          <span class="menu-arrow">›</span>
+        </a>
+        <button class="menu-item btn-logout" onclick="EcoCore.logout()">
+          <div class="menu-item-left"><span class="menu-icon">🚪</span><span class="menu-text">Выйти из аккаунта</span></div>
+        </button>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="hh.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span></a>
+      <a href="chel.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg><span>Челленджи</span></a>
+      <div class="qr-scan-btn"><svg viewBox="0 0 24 24"><path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zM19 3h-4v2h4v4h2V5c0-1.1-.9-2-2-2x"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg></div>
+      <a href="jopa.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M16 11V3H8v8H2l10 10 10-10h-6zM4.21 9l7.79-7.79L19.79 9H4.21z"/></svg><span>Рейтинг</span></a>
+      <a href="regit.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Профиль</span></a>
+    </nav>
+
+    <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК -->
+    <div class="qr-modal" id="settings-modal">
+      <div class="qr-modal-content">
+        <div class="qr-modal-header">
+          <h3>⚙️ Настройки сайта</h3>
+          <button class="qr-close-btn" onclick="closeSettingsModal()">&times;</button>
+        </div>
+        <div>
+          <div class="setting-row">
+            <span>Push-уведомления</span>
+            <input type="checkbox" checked style="width:18px; height:18px;">
+          </div>
+          <div class="setting-row">
+            <span>Звуковые эффекты</span>
+            <input type="checkbox" checked style="width:18px; height:18px;">
+          </div>
+          <div class="setting-row">
+            <span>Язык интерфейса</span>
+            <select style="padding:4px; border-radius:6px;"><option>Русский</option><option>Татарча</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ИСТОРИИ -->
+    <div class="qr-modal" id="history-modal">
+      <div class="qr-modal-content">
+        <div class="qr-modal-header">
+          <h3>📜 История сдачи отходов</h3>
+          <button class="qr-close-btn" onclick="closeHistoryModal()">&times;</button>
+        </div>
+        <div id="history-list" style="max-height:250px; overflow-y:auto;"></div>
+      </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПАРОЛЯ -->
+    <div class="qr-modal" id="pass-modal">
+      <div class="qr-modal-content">
+        <div class="qr-modal-header">
+          <h3>🔒 Смена пароля</h3>
+          <button class="qr-close-btn" onclick="closePassModal()">&times;</button>
+        </div>
+        <form id="pass-form" style="display:flex; flex-direction:column; gap:10px;">
+          <input type="password" id="old-pass" placeholder="Старый пароль" style="padding:10px; border:1px solid var(--border-color); border-radius:8px;" required>
+          <input type="password" id="new-pass" placeholder="Новый пароль" style="padding:10px; border:1px solid var(--border-color); border-radius:8px;" required>
+          <button type="submit" class="btn-action" style="background:var(--color-primary); color:white;">Сохранить пароль</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="qr-modal" id="qr-modal">
+      <div class="qr-modal-content">
+        <div class="qr-modal-header">
+          <h3>Отсканируйте QR-код</h3>
+          <button class="qr-close-btn" id="close-qr-btn">&times;</button>
+        </div>
+        <div id="qr-reader"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="js/app-core.js"></script>
+  <script src="js/qr.js"></script>
+  <script>
+    function openSettingsModal() { document.getElementById('settings-modal').classList.add('active'); }
+    function closeSettingsModal() { document.getElementById('settings-modal').classList.remove('active'); }
+
+    function openHistoryModal() {
+      const user = EcoCore.getCurrentUser();
+      const container = document.getElementById('history-list');
+      container.innerHTML = '';
+      
+      if (!user.history || user.history.length === 0) {
+        container.innerHTML = '<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px;">История сдачи пуста</p>';
+      } else {
+        user.history.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'history-item';
+          div.innerHTML = `
+            <div>
+              <strong>${item.type}</strong> (${item.amount})<br>
+              <small style="color:var(--text-muted);">${item.date}</small>
+            </div>
+            <div style="color:var(--color-primary-dark); font-weight:700;">${item.points} Б</div>
+          `;
+          container.appendChild(div);
+        });
+      }
+      document.getElementById('history-modal').classList.add('active');
+    }
+
+    function closeHistoryModal() { document.getElementById('history-modal').classList.remove('active'); }
+    function openPassModal() { document.getElementById('pass-modal').classList.add('active'); }
+    function closePassModal() { document.getElementById('pass-modal').classList.remove('active'); }
+
+    document.getElementById('pass-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const oldP = document.getElementById('old-pass').value;
+      const newP = document.getElementById('new-pass').value;
+      if (EcoCore.changePassword(oldP, newP)) {
+        closePassModal();
+        e.target.reset();
+      }
+    });
+  </script>
+</body>
+</html>

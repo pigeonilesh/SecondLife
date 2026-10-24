@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Life — Кабинет преподавателя</title>
+  <link rel="icon" href="img/icon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Базовые и админ-стили -->
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/admin.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div>
+        <h1 class="page-title">Панель администратора</h1>
+        <p style="font-size: 12px; color: var(--text-muted);">МЦК-КТИТС • ул. Бари Галеева, 3А</p>
+      </div>
+      <button class="icon-btn" onclick="EcoCore.logout()" title="Выйти">🚪</button>
+    </header>
+
+    <main class="main-content">
+      
+      <!-- EXCEL -->
+      <section class="admin-card">
+        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 8px;">📊 Ручное управление через Excel</h3>
+        <div class="admin-actions">
+          <button class="btn-excel-export" onclick="EcoCore.exportToExcel()">📥 Скачать Excel</button>
+          <label class="btn-excel-import">
+            📤 Загрузить Excel
+            <input type="file" accept=".xlsx, .xls" style="display: none;" onchange="EcoCore.importFromExcel(event)">
+          </label>
+        </div>
+      </section>
+
+      <!-- КОНСТРУКТОР ЗАДАНИЙ -->
+      <section class="admin-card">
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
+          <button class="tab-admin-btn active" id="btn-tab-ch" onclick="toggleForm('ch')">🏆 Новое задание</button>
+          <button class="tab-admin-btn" id="btn-tab-quiz" onclick="toggleForm('quiz')">🧠 Новый Квиз</button>
+        </div>
+
+        <!-- Форма 1: Обычный Челлендж -->
+        <form id="create-ch-form">
+          <div class="form-group-admin"><select id="ch-type" required><option value="plastic">Пластик</option><option value="paper">Макулатура</option><option value="battery">Батарейки</option><option value="glass">Стекло</option><option value="metal">Металл</option></select></div>
+          <div class="form-group-admin"><input type="text" id="ch-title" placeholder="Название челленджа" required></div>
+          <div class="form-group-admin"><input type="text" id="ch-desc" placeholder="Описание" required></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div class="form-group-admin"><input type="number" id="ch-reward" placeholder="Награда (Баллы)" required></div>
+            <div class="form-group-admin"><input type="number" step="0.1" id="ch-target" placeholder="Цель (кг или шт)" required></div>
+          </div>
+          <button type="submit" class="btn-action" style="background: var(--color-primary); color: white;">Опубликовать челлендж</button>
+        </form>
+
+        <!-- Форма 2: Эко-Квиз -->
+        <form id="create-quiz-form" style="display:none;">
+          <div class="form-group-admin"><input type="text" id="quiz-title" placeholder="Название квиза" required></div>
+          <div class="form-group-admin"><input type="text" id="quiz-q" placeholder="Вопрос студенту" required></div>
+          <div class="form-group-admin"><input type="text" id="quiz-a1" placeholder="Вариант 1 (Правильный)" required></div>
+          <div class="form-group-admin"><input type="text" id="quiz-a2" placeholder="Вариант 2 (Неправильный)" required></div>
+          <div class="form-group-admin"><input type="number" id="quiz-reward" placeholder="Награда (Баллы)" value="50" required></div>
+          <button type="submit" class="btn-action" style="background: #4338CA; color: white;">Опубликовать Квиз</button>
+        </form>
+      </section>
+
+      <!-- СПИСОК СТУДЕНТОВ -->
+      <section class="admin-card">
+        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">🎓 Студенты группы 323СИС</h3>
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ФИО</th>
+                <th>Сдано</th>
+                <th>Баллы</th>
+                <th>Действие</th>
+              </tr>
+            </thead>
+            <tbody id="admin-students-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="admin.html" class="nav-item active"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Админка</span></a>
+      <a href="hh.html" class="nav-item"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Вид студента</span></a>
+    </nav>
+  </div>
+
+  <script src="js/app-core.js"></script>
+  <script>
+    function toggleForm(type) {
+      if (type === 'ch') {
+        document.getElementById('create-ch-form').style.display = 'block';
+        document.getElementById('create-quiz-form').style.display = 'none';
+        document.getElementById('btn-tab-ch').classList.add('active');
+        document.getElementById('btn-tab-quiz').classList.remove('active');
+      } else {
+        document.getElementById('create-ch-form').style.display = 'none';
+        document.getElementById('create-quiz-form').style.display = 'block';
+        document.getElementById('btn-tab-quiz').classList.add('active');
+        document.getElementById('btn-tab-ch').classList.remove('active');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      EcoCore.renderAdminPage();
+
+      document.getElementById('create-ch-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        EcoCore.addChallengeOrQuiz({
+          isQuiz: false,
+          type: document.getElementById('ch-type').value,
+          title: document.getElementById('ch-title').value,
+          desc: document.getElementById('ch-desc').value,
+          reward: parseInt(document.getElementById('ch-reward').value),
+          target: parseFloat(document.getElementById('ch-target').value),
+          unit: document.getElementById('ch-type').value === 'battery' ? 'шт' : 'кг'
+        });
+        e.target.reset();
+      });
+
+      document.getElementById('create-quiz-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        EcoCore.addChallengeOrQuiz({
+          isQuiz: true,
+          type: 'quiz',
+          title: document.getElementById('quiz-title').value,
+          desc: 'Пройди тест для получения баллов',
+          reward: parseInt(document.getElementById('quiz-reward').value),
+          question: document.getElementById('quiz-q').value,
+          options: [
+            { text: document.getElementById('quiz-a1').value, isCorrect: true },
+            { text: document.getElementById('quiz-a2').value, isCorrect: false }
+          ]
+        });
+        e.target.reset();
+      });
+    });
+  </script>
+</body>
+</html>

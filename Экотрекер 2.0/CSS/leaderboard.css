@@ -1,0 +1,54 @@
+.header-leaderboard { flex-direction: column; align-items: stretch; gap: 12px; }
+
+/* Кнопки переключения рейтинга */
+.tabs-container {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 16px;
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-card);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+/* Пьедестал */
+.pedestal-section { display: flex; justify-content: center; align-items: flex-end; gap: 12px; margin-top: 10px; margin-bottom: 8px; padding: 0 8px; }
+.pedestal-item { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+.pedestal-avatar-wrap { position: relative; margin-bottom: 6px; }
+.pedestal-avatar { width: 52px; height: 52px; border-radius: 50%; background-color: var(--bg-page); border: 3px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+.rank-1 .pedestal-avatar { width: 64px; height: 64px; border-color: #F59E0B; background-color: #FEF3C7; color: #B45309; font-size: 20px; }
+
+.pedestal-name { font-size: 13px; font-weight: 700; color: var(--text-main); text-align: center; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pedestal-score { font-size: 13px; font-weight: 700; color: var(--color-primary-dark); margin-top: 2px; margin-bottom: 8px; }
+.pedestal-bar { width: 100%; border-radius: 12px 12px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
+.bar-gold { height: 90px; background: linear-gradient(180deg, #FBBF24 0%, #F59E0B 100%); }
+.bar-silver { height: 68px; background: linear-gradient(180deg, #E5E7EB 0%, #9CA3AF 100%); }
+.bar-bronze { height: 52px; background: linear-gradient(180deg, #FDBA74 0%, #D97706 100%); }
+
+/* Список рейтинга */
+.leaderboard-list { display: flex; flex-direction: column; gap: 8px; }
+.list-item { background-color: var(--bg-card); border-radius: 14px; padding: 12px 16px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-card); }
+.item-rank { font-size: 14px; font-weight: 700; color: var(--text-muted); width: 24px; text-align: center; }
+.item-avatar { width: 40px; height: 40px; border-radius: 50%; background-color: var(--bg-page); color: var(--text-main); font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); }
+.item-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.item-name { font-size: 14px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+.item-score { font-size: 14px; font-weight: 700; color: var(--text-main); }
+.item-current-user { background-color: var(--color-primary-light); border: 2px solid var(--color-primary); }
+.you-tag { background-color: var(--color-primary); color: #FFFFFF; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: var(--radius-pill); }

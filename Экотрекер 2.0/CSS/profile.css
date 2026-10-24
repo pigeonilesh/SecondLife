@@ -1,0 +1,54 @@
+.profile-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-avatar-wrapper { position: relative; }
+.profile-avatar { width: 64px; height: 64px; border-radius: var(--radius-pill); background-color: var(--color-primary-light); color: var(--color-primary-dark); font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 3px solid var(--color-primary); }
+.verified-badge { position: absolute; bottom: -2px; right: -2px; width: 22px; height: 22px; background-color: var(--color-primary); color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid #FFFFFF; }
+.profile-meta { display: flex; flex-direction: column; gap: 4px; }
+.profile-name { font-size: 18px; font-weight: 700; color: var(--text-main); }
+.profile-university { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.profile-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.tag-pill { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: var(--radius-pill); background-color: var(--bg-page); color: var(--text-muted); }
+.tag-verified { background-color: var(--color-primary-light); color: var(--color-primary-dark); }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-card { background-color: var(--bg-card); border-radius: 16px; padding: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 4px; }
+.stat-icon { font-size: 20px; }
+.stat-value { font-size: 18px; font-weight: 700; color: var(--text-main); }
+.stat-label { font-size: 12px; color: var(--text-muted); }
+
+.badges-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; }
+.badge-item { min-width: 80px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.badge-icon { font-size: 24px; width: 40px; height: 40px; border-radius: 50%; background-color: var(--color-accent-gold-light); display: flex; align-items: center; justify-content: center; }
+.badge-title { font-size: 11px; font-weight: 600; color: var(--text-main); }
+.badge-locked { opacity: 0.5; background-color: var(--bg-page); }
+
+.menu-list { display: flex; flex-direction: column; gap: 8px; }
+.menu-item { background-color: var(--bg-card); border-radius: 14px; padding: 14px 16px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; color: var(--text-main); font-size: 14px; font-weight: 500; cursor: pointer; width: 100%; text-decoration: none; }
+.btn-logout { color: #EF4444; border-color: #FEE2E2; }
+
+/* Элементы модальных окон профиля */
+.history-item { 
+  display: flex; 
+  justify-content: space-between; 
+  padding: 10px 0; 
+  border-bottom: 1px solid var(--border-color); 
+  font-size: 13px; 
+}
+
+.setting-row { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 12px 0; 
+  border-bottom: 1px solid var(--border-color); 
+  font-size: 14px; 
+}

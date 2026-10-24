@@ -1,0 +1,232 @@
+/* ==========================================================================
+   1. ПЕРЕМЕННЫЕ И БАЗОВЫЕ СТИЛИ (ОБЩИЕ ДЛЯ ВСЕХ СТРАНИЦ)
+   ========================================================================== */
+:root {
+  --color-primary: #10B981;
+  --color-primary-dark: #047857;
+  --color-primary-light: #ECFDF5;
+  --color-accent-lime: #84CC16;
+  --color-accent-gold: #F59E0B;
+  --color-accent-gold-light: #FEF3C7;
+  --color-accent-blue: #0EA5E9;
+  --color-accent-blue-light: #E0F2FE;
+  --bg-page: #F3F4F6;
+  --bg-app: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --text-main: #111827;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --radius-card: 20px;
+  --radius-btn: 12px;
+  --radius-pill: 9999px;
+  --shadow-card: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-primary: 0px 8px 20px rgba(16, 185, 129, 0.25);
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  background-color: var(--bg-app);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 90px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: max-width 0.3s ease, border-radius 0.3s ease;
+}
+
+/* ШАПКА И ХЕДЕР */
+.header {
+  padding: 20px 20px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-app);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-primary);
+}
+
+.user-info .greeting { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.user-info .name { font-size: 16px; color: var(--text-main); font-weight: 700; }
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.page-title { font-size: 20px; font-weight: 700; color: var(--text-main); }
+.main-content { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
+
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.section-title { font-size: 18px; font-weight: 700; color: var(--text-main); }
+.section-link { font-size: 13px; color: var(--color-primary); font-weight: 600; text-decoration: none; }
+
+.btn-action {
+  background-color: #FFFFFF;
+  color: var(--color-primary-dark);
+  border: none;
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+/* НИЖНЯЯ НАВИГАЦИЯ И QR КНОПКА */
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  width: 60px;
+  transition: color 0.2s;
+}
+
+.nav-item.active, .nav-item:hover { color: var(--color-primary); }
+.nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+
+.qr-scan-btn {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-primary);
+  margin-top: -30px;
+  border: 4px solid var(--bg-app);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Фикс строгого размера QR иконки */
+.qr-scan-btn svg {
+  width: 24px !important;
+  height: 24px !important;
+  fill: #FFFFFF !important;
+}
+
+/* МОДАЛЬНЫЕ ОКНА */
+.qr-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.qr-modal.active { display: flex; }
+.qr-modal-content {
+  background-color: var(--bg-card);
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.qr-modal-header { display: flex; justify-content: space-between; align-items: center; }
+.qr-close-btn {
+  background: var(--bg-page);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  body { padding: 40px 20px; }
+  .app-container { max-width: 800px; border-radius: 24px; padding-bottom: 40px; }
+  .header { padding: 28px 32px 16px; }
+  .main-content { padding: 0 32px; gap: 28px; }
+  .bottom-nav { position: relative; order: -1; border-top: none; border-bottom: 1px solid var(--border-color); height: 64px; padding: 0 32px; justify-content: flex-end; gap: 24px; }
+  .nav-item { flex-direction: row; width: auto; gap: 8px; font-size: 14px; }
+  .qr-scan-btn { margin-top: 0; width: 44px; height: 44px; border: none; order: 5; }
+  .qr-scan-btn svg { width: 20px !important; height: 20px !important; }
+}
